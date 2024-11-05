@@ -1,31 +1,42 @@
 @font-face {
-  font-family: 'DM Sans';
-  src: url('/fonts/DMSans-Regular.woff2') format('woff2'),
-    url('/fonts/DMSans-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+    font-family: 'DM Sans';
+    src: url('/fonts/DMSans-Regular.woff2') format('woff2'),
+        url('/fonts/DMSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
-  font-family: 'DM Sans';
-  src: url('/fonts/DMSans-Medium.woff2') format('woff2'),
-    url('/fonts/DMSans-Medium.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
+    font-family: 'DM Sans';
+    src: url('/fonts/DMSans-Medium.woff2') format('woff2'),
+        url('/fonts/DMSans-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
-  font-family: 'DM Sans';
-  src: url('/fonts/DMSans-Italic.woff2') format('woff2'),
-    url('/fonts/DMSans-Italic.ttf') format('truetype');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
+    font-family: 'DM Sans';
+    src: url('/fonts/DMSans-Italic.woff2') format('woff2'),
+        url('/fonts/DMSans-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
 }
 
 html,
 body {
-  font-family: 'DM Sans', Roboto, sans-serif;
+    font-family: 'DM Sans', Roboto, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --ANIMATION: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --dark-gray: rgba(36, 36, 36, 1);
+    --light-gray: rgba(244, 244, 244, 1);
+    --backdrop: rgba(4, 4, 4, 0.4);
 }
