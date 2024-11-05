@@ -1,0 +1,35 @@
+.social-media-links {
+    display: flex;
+    gap: 12px;
+}
+
+.social-media-links li a {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border: 1px solid rgba(244, 244, 244, 0.1);
+    border-radius: 10px;
+    background: transparent;
+    cursor: pointer;
+    transition: background-color var(--ANIMATION), border-color var(--ANIMATION);
+}
+
+.social-media-links li a svg {
+    width: 28px;
+    height: 28px;
+    fill: var(--light-gray);
+}
+
+.social-media-links li a:hover,
+.social-media-links li a:focus,
+.social-media-links li a:active {
+    border-color: var(--light-gray);
+    background-color: var(--light-gray);
+    outline: none;
+}
+
+.social-media-links li a:hover svg,
+.social-media-links li a:focus svg,
+.social-media-links li a:active svg {
+    fill: var(--dark-gray);
+}

@@ -1,0 +1,22 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 24px;
+}
+
+.logo {
+    width: 132px;
+    height: 24px;
+    display: inline-block;
+}
+
+.burger-menu {
+    width: 32px;
+    height: 32px;
+}
+
+.burger {
+    width: 32px;
+    height: 32px;
+}
