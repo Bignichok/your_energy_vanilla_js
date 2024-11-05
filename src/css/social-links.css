@@ -7,11 +7,14 @@
     display: flex;
     align-items: center;
     padding: 8px;
-    border: 1px solid rgba(244, 244, 244, 0.1);
     border-radius: 10px;
-    background: transparent;
     cursor: pointer;
     transition: background-color var(--ANIMATION), border-color var(--ANIMATION);
+}
+
+.social-media-links li a {
+    border: 1px solid rgba(244, 244, 244, 0.1);
+    background: transparent;
 }
 
 .social-media-links li a svg {
@@ -32,4 +35,25 @@
 .social-media-links li a:focus svg,
 .social-media-links li a:active svg {
     fill: var(--dark-gray);
+}
+
+.social-media-links--white li a {
+    border: 1px solid rgba(36, 36, 36, 0.1);
+}
+
+.social-media-links--white li a svg {
+    fill: var(--dark-gray);
+}
+
+.social-media-links--white li a:hover,
+.social-media-links--white li a:focus,
+.social-media-links--white li a:active {
+    background-color: rgba(36, 36, 36, 0.8);
+    background-color: rgba(36, 36, 36, 0.8);
+}
+
+.social-media-links--white li a:hover svg,
+.social-media-links--white li a:focus svg,
+.social-media-links--white li a:active svg {
+    fill: var(--light-gray);
 }
