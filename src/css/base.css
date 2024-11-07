@@ -39,4 +39,9 @@ body {
     --dark-gray: rgba(36, 36, 36, 1);
     --light-gray: rgba(244, 244, 244, 1);
     --backdrop: rgba(4, 4, 4, 0.4);
+    --white: rgb(255, 255, 255);
+}
+
+main {
+    background-color: var(--light-gray);
 }
