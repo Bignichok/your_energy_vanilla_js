@@ -22,3 +22,12 @@ export const fetchFilters = async filterType => {
     console.error('Error fetching filters:', error);
   }
 };
+
+export const fetchQuote = async () => {
+  try {
+    const response = await api.get('/quote');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching the quote:', error);
+  }
+};
