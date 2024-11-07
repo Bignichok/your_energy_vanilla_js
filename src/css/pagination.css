@@ -1,15 +1,22 @@
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .pagination button {
-    margin: 0 5px;
-    padding: 5px 10px;
-    background-color: #f0f0f0;
-    border: none;
+    color: #D4D4D4;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+    letter-spacing: 0.96px;
     cursor: pointer;
 }
 
 .pagination button.active {
-    font-weight: bold;
-    color: #fff;
-    background-color: #007bff;
+    border: 1px solid var(--dark-gray);
+    border-radius: 50%;
+    color: var(--dark-gray);
 }
 
 .pagination button:disabled {

@@ -1,12 +1,12 @@
 import { fetchCategories } from './api.js';
+import { Pagination } from './Pagination.js';
 
 export const initializeCategoriesSection = () => {
   const categoriesContainer = document.querySelector('.categories-list');
   const filters = document.querySelector('#filters');
   const paginationContainer = document.querySelector('.pagination');
-  let currentPage = 1;
-  let totalPages = 1;
   let activeFilter = 'Muscles';
+  let pagination;
 
   function renderCategories(categories) {
     categoriesContainer.innerHTML = '';
@@ -20,7 +20,6 @@ export const initializeCategoriesSection = () => {
           <p class="categories-list-item-title">${category.name}</p>
           <p class="categories-list-item-sub-title">${category.filter}</p>
         `;
-        listItem.addEventListener('click', () => loadExercises(category.name));
         categoriesContainer.appendChild(listItem);
       });
     } else {
@@ -37,62 +36,20 @@ export const initializeCategoriesSection = () => {
 
   async function loadCategories(filter, page = 1) {
     activeFilter = filter;
-    currentPage = page;
     setActiveFilterButton(filter);
+
     const data = await fetchCategories(filter, page);
-    totalPages = data.totalPages;
     renderCategories(data.results);
-    renderPagination();
-  }
 
-  function renderPagination() {
-    paginationContainer.innerHTML = '';
-
-    const createPageButton = (
-      label,
-      page,
-      isActive = false,
-      isDisabled = false
-    ) => {
-      const button = document.createElement('button');
-      button.textContent = label;
-      button.disabled = isDisabled;
-      button.className = isActive ? 'active' : '';
-      button.addEventListener('click', () =>
-        loadCategories(activeFilter, page)
-      );
-      paginationContainer.appendChild(button);
-    };
-
-    // << First Page Button
-    createPageButton('<<', 1, false, currentPage === 1);
-
-    // < Previous Page Button
-    createPageButton('<', currentPage - 1, false, currentPage === 1);
-
-    // Page Numbers
-    for (let i = 1; i <= totalPages; i++) {
-      if (
-        i === 1 ||
-        i === totalPages ||
-        (i >= currentPage - 1 && i <= currentPage + 1)
-      ) {
-        createPageButton(i, i, i === currentPage);
-      } else if (i === 2 || i === totalPages - 1) {
-        paginationContainer.appendChild(document.createTextNode('...'));
-      }
+    if (!pagination) {
+      pagination = new Pagination({
+        container: paginationContainer,
+        totalPages: 10,
+        onPageChange: page => loadCategories(activeFilter, page),
+      });
+    } else {
+      pagination.setTotalPages(10);
     }
-
-    // > Next Page Button
-    createPageButton('>', currentPage + 1, false, currentPage === totalPages);
-
-    // >> Last Page Button
-    createPageButton('>>', totalPages, false, currentPage === totalPages);
-  }
-
-  function loadExercises(categoryName) {
-    categoriesContainer.innerHTML = `<p>Loading exercises for ${categoryName}...</p>`;
-    // Additional functionality to fetch and display exercises can be implemented here
   }
 
   loadCategories('Muscles');
