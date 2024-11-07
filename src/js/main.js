@@ -1,4 +1,4 @@
-import { initializeFilterListener } from './filters.js';
+import { initializeCategoriesSection } from './categories.js';
 import { displayQuoteOfTheDay } from './quote.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -31,6 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
   closeMenuButton.addEventListener('click', toogleMenu);
   mobileNavigation.addEventListener('click', toogleMenu);
 
-  initializeFilterListener();
+  initializeCategoriesSection();
   displayQuoteOfTheDay();
 });
