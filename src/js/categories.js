@@ -7,41 +7,78 @@ export const initializeCategoriesSection = () => {
   const filters = document.querySelector('#filters');
   const paginationContainer = document.querySelector('.pagination');
   const exercisesContainer = document.querySelector('.exercises-list');
+  const searchForm = document.querySelector('.search-form');
+  const searchInput = document.querySelector('.search-input');
+  const clearButton = document.querySelector('.clear-button');
 
   let activeFilter = 'Muscles';
   let categoryPagination;
   let exercisePagination;
+  let currentCategory = '';
+  let currentFilter = '';
+
+  const toggleClearButton = () => {
+    clearButton.style.display = searchInput.value ? 'flex' : 'none';
+  };
+
+  const clearInput = () => {
+    searchInput.value = '';
+    toggleClearButton();
+    searchInput.focus();
+  };
+
+  const handleFormSubmit = event => {
+    event.preventDefault();
+    const searchTerm = searchInput.value.trim();
+    loadExercises({
+      category: currentCategory,
+      filter: currentFilter,
+      keyword: searchTerm || '',
+      resetPagination: true,
+    });
+  };
+
+  searchInput.addEventListener('input', toggleClearButton);
+  clearButton.addEventListener('click', clearInput);
+  searchForm.addEventListener('submit', handleFormSubmit);
 
   const scrollToFilters = () => {
     window.scrollTo({ top: filtersTitle.offsetTop, behavior: 'smooth' });
   };
 
   const renderTitle = category => {
-    if (category) {
-      filtersTitle.innerHTML = `Exercises /<span>${category}</span>`;
-    } else {
-      filtersTitle.innerHTML = 'Exercises';
-    }
+    filtersTitle.innerHTML = category
+      ? `Exercises /<span>${category}</span>`
+      : 'Exercises';
+  };
+
+  const getCategoriesMarkup = categories => {
+    return categories
+      .map(
+        ({ filter, name, imgURL }) => `
+        <li class="categories-list-item" data-filter="${filter}" data-name="${name}"
+          style="background-image: linear-gradient(0deg, rgba(17, 17, 17, 0.5), rgba(17, 17, 17, 0.5)), url(${imgURL})">
+            <p class="categories-list-item-title">${name}</p>
+            <p class="categories-list-item-sub-title">${filter}</p>
+          </li>
+      `
+      )
+      .join('');
   };
 
   const renderCategories = (categories, cb) => {
     categoriesContainer.innerHTML = '';
     categoriesContainer.style.display = 'grid';
     exercisesContainer.style.display = 'none';
+    searchForm.style.display = 'none';
     renderTitle();
     scrollToFilters();
 
     if (categories && categories.length > 0) {
-      categories.forEach(category => {
-        const listItemHTML = `
-          <li class="categories-list-item" data-filter="${category.filter}" data-name="${category.name}"
-          style="background-image: linear-gradient(0deg, rgba(17, 17, 17, 0.5), rgba(17, 17, 17, 0.5)), url(${category.imgURL})">
-            <p class="categories-list-item-title">${category.name}</p>
-            <p class="categories-list-item-sub-title">${category.filter}</p>
-          </li>
-        `;
-        categoriesContainer.insertAdjacentHTML('beforeend', listItemHTML);
-      });
+      categoriesContainer.insertAdjacentHTML(
+        'beforeend',
+        getCategoriesMarkup(categories)
+      );
     } else {
       categoriesContainer.insertAdjacentHTML(
         'beforeend',
@@ -93,6 +130,7 @@ export const initializeCategoriesSection = () => {
     exercisesContainer.innerHTML = '';
     categoriesContainer.style.display = 'none';
     exercisesContainer.style.display = 'grid';
+    searchForm.style.display = 'flex';
     renderTitle(category);
     scrollToFilters();
 
@@ -144,6 +182,9 @@ export const initializeCategoriesSection = () => {
     page = 1,
     resetPagination = false,
   }) => {
+    currentCategory = category;
+    currentFilter = filter;
+
     const data = await fetchExercises({
       bodypart: filter === 'Body parts' ? category : '',
       muscles: filter === 'Muscles' ? category : '',
@@ -171,6 +212,7 @@ export const initializeCategoriesSection = () => {
       exercisePagination.setTotalPages(data.totalPages);
     }
   };
+
   categoriesContainer.addEventListener('click', event => {
     const categoryItem = event.target.closest('.categories-list-item');
     if (categoryItem) {
