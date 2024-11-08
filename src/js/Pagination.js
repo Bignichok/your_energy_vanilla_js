@@ -104,7 +104,6 @@ export class Pagination {
 
     this.container.innerHTML = paginationHTML;
 
-    // Attach event listeners for page buttons
     this.container.querySelectorAll('button[data-page]').forEach(button => {
       const page = parseInt(button.getAttribute('data-page'), 10);
       button.addEventListener('click', () => this.goToPage(page));
