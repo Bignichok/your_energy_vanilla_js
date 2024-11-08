@@ -7,19 +7,19 @@ const api = axios.create({
   },
 });
 
-export const fetchFilters = async filterType => {
+export const fetchCategories = async (filter = 'Muscles', page = 1) => {
   try {
     const response = await api.get('/filters', {
       params: {
-        filter: filterType,
-        page: 1,
+        filter,
+        page,
         limit: 12,
       },
     });
 
     return response.data;
   } catch (error) {
-    console.error('Error fetching filters:', error);
+    console.error('Error fetching categories:', error);
   }
 };
 
