@@ -8,12 +8,15 @@ const api = axios.create({
 });
 
 export const fetchCategories = async (filter = 'Muscles', page = 1) => {
+  const isMobile = window.innerWidth < 768;
+  const limit = isMobile ? 9 : 12;
+
   try {
     const response = await api.get('/filters', {
       params: {
         filter,
         page,
-        limit: 12,
+        limit,
       },
     });
 

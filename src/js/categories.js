@@ -40,7 +40,12 @@ export const initializeCategoriesSection = () => {
     });
   };
 
-  const loadCategories = async (filter, page = 1, cb) => {
+  const loadCategories = async ({
+    filter,
+    page = 1,
+    cb,
+    resetPage = false,
+  }) => {
     activeFilter = filter;
     setActiveFilterButton(filter);
 
@@ -52,20 +57,23 @@ export const initializeCategoriesSection = () => {
         container: paginationContainer,
         totalPages: data.totalPages,
         onPageChange: page =>
-          loadCategories(activeFilter, page, scrollToFilters),
+          loadCategories({ filter: activeFilter, page, cb: scrollToFilters }),
       });
     } else {
+      if (resetPage) {
+        pagination.currentPage = 1;
+      }
       pagination.setTotalPages(data.totalPages);
     }
   };
 
-  loadCategories('Muscles');
+  loadCategories({ filter: 'Muscles' });
 
   filters.addEventListener('click', event => {
     const button = event.target.closest('.filter-button');
     if (button) {
       const filter = button.dataset.filter;
-      loadCategories(filter);
+      loadCategories({ filter, page: 1, cb: scrollToFilters, resetPage: true });
     }
   });
 };
