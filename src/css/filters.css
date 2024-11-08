@@ -24,12 +24,28 @@
     font-weight: 400;
 }
 
+.filters-title span {
+    font-size: 20px;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+    color: (36, 36, 36, 0.5);
+    margin-left: 8px;
+    text-transform: capitalize;
+    color: rgba(36, 36, 36, 0.5);
+}
+
 @media only screen and (min-width: 768px) {
     .filters-title {
         font-size: 44px;
         line-height: 48px;
         letter-spacing: -0.02em;
         margin-bottom: 32px;
+    }
+
+    .filters-title span {
+        font-size: 24px;
+        line-height: 32px;
+        letter-spacing: -0.02em;
     }
 }
 

@@ -34,3 +34,29 @@ export const fetchQuote = async () => {
     console.error('Error fetching the quote:', error);
   }
 };
+
+export const fetchExercises = async ({
+  bodypart = '',
+  muscles = '',
+  equipment = '',
+  keyword = '',
+  page = 1,
+  limit = 10,
+}) => {
+  try {
+    const response = await api.get('/exercises', {
+      params: {
+        bodypart,
+        muscles,
+        equipment,
+        keyword,
+        page,
+        limit,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching exercises:', error);
+  }
+};
