@@ -10,7 +10,7 @@ export class Pagination {
   render() {
     this.container.innerHTML = '';
 
-    if (this.totalPages <= 1) return;
+    if (this.totalPages < 1) return;
 
     let paginationHTML = '';
 
@@ -18,29 +18,37 @@ export class Pagination {
       label,
       page,
       isActive = false,
-      isDisabled = false
+      isDisabled = false,
+      arrowButton
     ) => {
+      const classes = [];
+      isActive && classes.push('active');
+      arrowButton && classes.push('arrow-button');
       return `<button 
-                  class="${isActive ? 'active' : ''}" 
+                  class="${classes.join(' ')}" 
                   ${isDisabled ? 'disabled' : ''}
                   data-page="${page}">
                   ${label}
                 </button>`;
     };
 
-    // Add << and < buttons
-    paginationHTML += createButtonMarkup(
-      '<<',
-      1,
-      false,
-      this.currentPage === 1
-    );
-    paginationHTML += createButtonMarkup(
-      '<',
-      this.currentPage - 1,
-      false,
-      this.currentPage === 1
-    );
+    if (this.totalPages > 3) {
+      // Add << and < buttons
+      paginationHTML += createButtonMarkup(
+        '<<',
+        1,
+        false,
+        this.currentPage === 1,
+        true
+      );
+      paginationHTML += createButtonMarkup(
+        '<',
+        this.currentPage - 1,
+        false,
+        this.currentPage === 1,
+        true
+      );
+    }
 
     // Determine page range
     let startPage, endPage;
@@ -76,19 +84,23 @@ export class Pagination {
       paginationHTML += createButtonMarkup(this.totalPages, this.totalPages);
     }
 
-    // Add > and >> buttons
-    paginationHTML += createButtonMarkup(
-      '>',
-      this.currentPage + 1,
-      false,
-      this.currentPage === this.totalPages
-    );
-    paginationHTML += createButtonMarkup(
-      '>>',
-      this.totalPages,
-      false,
-      this.currentPage === this.totalPages
-    );
+    if (this.totalPages > 3) {
+      // Add > and >> buttons
+      paginationHTML += createButtonMarkup(
+        '>',
+        this.currentPage + 1,
+        false,
+        this.currentPage === this.totalPages,
+        true
+      );
+      paginationHTML += createButtonMarkup(
+        '>>',
+        this.totalPages,
+        false,
+        this.currentPage === this.totalPages,
+        true
+      );
+    }
 
     this.container.innerHTML = paginationHTML;
 

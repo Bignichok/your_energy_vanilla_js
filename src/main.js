@@ -1,5 +1,5 @@
-import { initializeCategoriesSection } from './categories.js';
-import { displayQuoteOfTheDay } from './quote.js';
+import { initializeCategoriesSection } from './js/categories.js';
+import { displayQuoteOfTheDay } from './js/quote.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const menuButton = document.querySelector('.burger-menu');

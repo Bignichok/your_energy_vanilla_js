@@ -2,7 +2,7 @@
     grid-area: categories;
 }
 
-@media only screen and (min-width: 1280px) {
+@media only screen and (min-width: 1440px) {
     .categories {
         min-width: 758px;
     }
@@ -32,7 +32,7 @@
     background-position: center;
 }
 
-@media only screen and (min-width: 1280px) {
+@media only screen and (min-width: 1440px) {
     .categories-list-item {
         height: 242px;
     }

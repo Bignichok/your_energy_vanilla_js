@@ -45,12 +45,3 @@ body {
 main {
     background-color: var(--light-gray);
 }
-
-
-@media only screen and (min-width: 1280px) {
-    .exercises-holder {
-        display: flex;
-        flex-direction: row-reverse;
-        gap: 32px;
-    }
-}

@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vanilla App Template</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vanilla App Template</title>
-  <link rel="stylesheet" href="./css/styles.css" />
-</head>
+  <body>
+    <load src="./partials/header.html" />
 
-<body>
-  <load src="./partials/header.html" />
-
-  <main>
-    <load src="./partials/hero.html" />
-    <div class="container">
-      <load src="./partials/filters.html" />
-      <div class="exercises-holder">
-        <div>
-          <load src="./partials/categories.html" />
-          <load src="./partials/pagination.html" />
-        </div>
-        <load src="./partials/quote.html" />
+    <main>
+      <load src="./partials/hero.html" />
+      <div class="container">
+        <section class="exercises-section">
+          <load src="./partials/filters.html" />
+          <div class="exercises-holder">
+            <div class="exercises-cards">
+              <load src="./partials/categories.html" />
+              <load src="./partials/pagination.html" />
+            </div>
+            <load src="./partials/quote.html" />
+          </div>
+        </section>
       </div>
-    </div>
-  </main>
+    </main>
 
-  <load src="./partials/footer.html" />
-  <load src="./partials/mobile-menu.html" />
+    <load src="./partials/footer.html" />
+    <load src="./partials/mobile-menu.html" />
 
-  <script type="module" src="./js/main.js"></script>
-  <script type="module" src="./js/api.js"></script>
-  <script type="module" src="./js/categories.js"></script>
-  <script type="module" src="./js/quote.js"></script>
-  <script type="module" src="./js/Pagination.js"></script>
-</body>
-
+    <script type="module" src="./main.js"></script>
+    <script type="module" src="./js/api.js"></script>
+    <script type="module" src="./js/categories.js"></script>
+    <script type="module" src="./js/quote.js"></script>
+    <script type="module" src="./js/Pagination.js"></script>
+  </body>
 </html>

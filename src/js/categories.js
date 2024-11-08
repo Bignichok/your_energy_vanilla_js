@@ -8,49 +8,56 @@ export const initializeCategoriesSection = () => {
   let activeFilter = 'Muscles';
   let pagination;
 
-  function renderCategories(categories) {
+  const scrollToFilters = () => {
+    window.scrollTo({ top: filters.offsetTop, behavior: 'smooth' });
+  };
+
+  const renderCategories = (categories, cb) => {
     categoriesContainer.innerHTML = '';
 
     if (categories && categories.length > 0) {
       categories.forEach(category => {
-        const listItem = document.createElement('li');
-        listItem.className = 'categories-list-item';
-        listItem.style.backgroundImage = `linear-gradient(0deg, rgba(17, 17, 17, 0.5), rgba(17, 17, 17, 0.5)), url(${category.imgURL})`;
-        listItem.innerHTML = `
-          <p class="categories-list-item-title">${category.name}</p>
-          <p class="categories-list-item-sub-title">${category.filter}</p>
+        const listItemHTML = `
+          <li class="categories-list-item" style="background-image: linear-gradient(0deg, rgba(17, 17, 17, 0.5), rgba(17, 17, 17, 0.5)), url(${category.imgURL})">
+            <p class="categories-list-item-title">${category.name}</p>
+            <p class="categories-list-item-sub-title">${category.filter}</p>
+          </li>
         `;
-        categoriesContainer.appendChild(listItem);
+        categoriesContainer.insertAdjacentHTML('beforeend', listItemHTML);
       });
     } else {
-      categoriesContainer.innerHTML =
-        '<p>No categories found for the selected filter.</p>';
+      categoriesContainer.insertAdjacentHTML(
+        'beforeend',
+        '<p>No categories found for the selected filter.</p>'
+      );
     }
-  }
+    cb && cb();
+  };
 
-  function setActiveFilterButton(filterName) {
+  const setActiveFilterButton = filterName => {
     document.querySelectorAll('.filter-button').forEach(button => {
       button.classList.toggle('active', button.dataset.filter === filterName);
     });
-  }
+  };
 
-  async function loadCategories(filter, page = 1) {
+  const loadCategories = async (filter, page = 1, cb) => {
     activeFilter = filter;
     setActiveFilterButton(filter);
 
     const data = await fetchCategories(filter, page);
-    renderCategories(data.results);
+    renderCategories(data.results, cb);
 
     if (!pagination) {
       pagination = new Pagination({
         container: paginationContainer,
-        totalPages: 10,
-        onPageChange: page => loadCategories(activeFilter, page),
+        totalPages: data.totalPages,
+        onPageChange: page =>
+          loadCategories(activeFilter, page, scrollToFilters),
       });
     } else {
-      pagination.setTotalPages(10);
+      pagination.setTotalPages(data.totalPages);
     }
-  }
+  };
 
   loadCategories('Muscles');
 
