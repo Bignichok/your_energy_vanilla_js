@@ -69,3 +69,12 @@ export const fetchExerciseById = async id => {
     console.error('Error fetching exercise by id:', e);
   }
 };
+
+export const subscribeEmail = async email => {
+  try {
+    const response = await api.post('/subscription', { email });
+    return response.data;
+  } catch (error) {
+    console.error('Error subscribing email:', error);
+  }
+};
