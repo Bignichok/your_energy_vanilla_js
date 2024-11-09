@@ -30,12 +30,12 @@ export const initializeExerciseModal = () => {
 
     if (favoriteButton) {
       favoriteButton.innerHTML = `
-      ${isFavorited ? 'Remove from Favorites' : 'Add to Favorites'}
-      <svg width="20" height="20">
-        <use href="./img/sprite.svg#${
-          isFavorited ? 'icon-trash' : 'icon-heart'
-        }"></use>
-      </svg>
+        ${isFavorited ? 'Remove from Favorites' : 'Add to Favorites'}
+        <svg width="20" height="20">
+          <use href="./img/sprite.svg#${
+            isFavorited ? 'icon-trash' : 'icon-heart'
+          }"></use>
+        </svg>
       `;
     }
   };
@@ -44,27 +44,17 @@ export const initializeExerciseModal = () => {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     const isFavorited = favorites.some(fav => fav._id === exerciseData._id);
 
-    if (isFavorited) {
-      localStorage.setItem(
-        'favorites',
-        JSON.stringify(favorites.filter(fav => fav._id !== exerciseData._id))
-      );
-    } else {
-      favorites.push({
-        _id: exerciseData._id,
-        name: exerciseData.name,
-        rating: exerciseData.rating,
-        bodyPart: exerciseData.bodyPart,
-        target: exerciseData.target,
-        burnedCalories: exerciseData.burnedCalories,
-      });
-      localStorage.setItem('favorites', JSON.stringify(favorites));
-    }
+    localStorage.setItem(
+      'favorites',
+      JSON.stringify(
+        isFavorited
+          ? favorites.filter(fav => fav._id !== exerciseData._id)
+          : [...favorites, exerciseData]
+      )
+    );
 
     updateFavoriteButton(exerciseData._id);
-
-    const currentPath = window.location.pathname.split('/').pop();
-    if (currentPath === 'favorites.html') {
+    if (window.location.pathname.endsWith('favorites.html')) {
       initializeFavoriteExercises();
     }
   };
@@ -103,19 +93,16 @@ export const initializeExerciseModal = () => {
 
     if (deleteButton) {
       const exerciseId = deleteButton.dataset.id;
-
       const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-      const updatedFavorites = favorites.filter(
-        item => item._id !== exerciseId
+      localStorage.setItem(
+        'favorites',
+        JSON.stringify(favorites.filter(item => item._id !== exerciseId))
       );
-      localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
-
       initializeFavoriteExercises();
     }
 
-    if (exerciseItem && !deleteButton) {
-      showModal(exerciseItem.dataset.id);
-    }
+    if (exerciseItem && !deleteButton) showModal(exerciseItem.dataset.id);
   });
+
   modalBackdrop.addEventListener('click', hideModal);
 };

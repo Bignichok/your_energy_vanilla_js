@@ -21,10 +21,7 @@ export class Pagination {
 
   render() {
     this.container.innerHTML = '';
-
     if (this._totalPages < 1) return;
-
-    let paginationHTML = '';
 
     const createButtonMarkup = ({
       label,
@@ -32,18 +29,13 @@ export class Pagination {
       isActive = false,
       isDisabled = false,
       arrowButton = false,
-    }) => {
-      const classes = [];
-      if (isActive) classes.push('active');
-      if (arrowButton) classes.push('arrow-button');
+    }) => `
+      <button class="${isActive ? 'active ' : ''}${
+      arrowButton ? 'arrow-button' : ''
+    }" data-page="${page}" ${isDisabled ? 'disabled' : ''}>${label}</button>
+    `;
 
-      return `<button 
-                class="${classes.join(' ')}" 
-                ${isDisabled ? 'disabled' : ''}
-                data-page="${page}">
-                ${label}
-              </button>`;
-    };
+    let paginationHTML = '';
 
     if (this._totalPages > 3) {
       paginationHTML += createButtonMarkup({
@@ -52,7 +44,6 @@ export class Pagination {
         isDisabled: this._currentPage === 1,
         arrowButton: true,
       });
-
       paginationHTML += createButtonMarkup({
         label: '<',
         page: this._currentPage - 1,
@@ -77,10 +68,7 @@ export class Pagination {
     }
 
     if (startPage > 1) {
-      paginationHTML += createButtonMarkup({
-        label: 1,
-        page: 1,
-      });
+      paginationHTML += createButtonMarkup({ label: 1, page: 1 });
       if (startPage > 2) paginationHTML += '<span class="ellipsis">...</span>';
     }
 
@@ -108,7 +96,6 @@ export class Pagination {
         isDisabled: this._currentPage === this._totalPages,
         arrowButton: true,
       });
-
       paginationHTML += createButtonMarkup({
         label: '>>',
         page: this._totalPages,
