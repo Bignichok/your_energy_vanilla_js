@@ -18,7 +18,7 @@ export const initializeExerciseModal = () => {
   const hideModal = () => {
     modalBackdrop.classList.remove('active');
     modal.classList.remove('active');
-
+    document.body.classList.remove('modal-open');
     modal.innerHTML = '';
     document.removeEventListener('keydown', escKeyListener);
   };
@@ -26,10 +26,16 @@ export const initializeExerciseModal = () => {
   const updateFavoriteButton = exerciseId => {
     const favoriteButton = modal.querySelector('.favorite-button');
     const isFavorited = checkIfFavorited(exerciseId);
+
     if (favoriteButton) {
-      favoriteButton.textContent = isFavorited
-        ? 'Remove from Favorites'
-        : 'Add to Favorites';
+      favoriteButton.innerHTML = `
+      ${isFavorited ? 'Remove from Favorites' : 'Add to Favorites'}
+      <svg width="20" height="20">
+        <use href="./img/sprite.svg#${
+          isFavorited ? 'icon-trash' : 'icon-heart'
+        }"></use>
+      </svg>
+      `;
     }
   };
 
@@ -51,26 +57,25 @@ export const initializeExerciseModal = () => {
     try {
       const exerciseData = await fetchExerciseById(exerciseId);
 
-      modal.innerHTML = '';
-      modal.insertAdjacentHTML(
-        'beforeend',
-        getExerciseModalMarkup(exerciseData)
+      modal.innerHTML = getExerciseModalMarkup(
+        exerciseData,
+        checkIfFavorited(exerciseId)
       );
 
       const closeButton = modal.querySelector('.close-modal');
       const favoriteButton = modal.querySelector('.favorite-button');
 
-      updateFavoriteButton(exerciseId);
-
       modalBackdrop.classList.add('active');
       modal.classList.add('active');
+      document.body.classList.add('modal-open');
       document.addEventListener('keydown', escKeyListener);
 
       if (closeButton) closeButton.addEventListener('click', hideModal);
-      if (favoriteButton)
+      if (favoriteButton) {
         favoriteButton.addEventListener('click', () =>
           toggleFavorite(exerciseId)
         );
+      }
     } catch (error) {
       console.error('Failed to fetch exercise details:', error);
     }

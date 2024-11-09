@@ -11,3 +11,7 @@ export const clearInput = (input, button) => {
 export const scrollToFilters = element => {
   window.scrollTo({ top: element.offsetTop, behavior: 'smooth' });
 };
+
+export const getRoundedRating = rating => {
+  return parseFloat(Math.round(rating)).toFixed(1);
+};

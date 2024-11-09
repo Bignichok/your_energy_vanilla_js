@@ -1,3 +1,7 @@
+body.modal-open {
+    overflow: hidden;
+}
+
 .modal-backdrop {
     position: fixed;
     top: 0;
@@ -56,6 +60,7 @@
 
 .exercise-gif {
     width: 100%;
+    height: 258px;
     border-radius: 12px;
 }
 
@@ -156,6 +161,13 @@
     color: var(--light-gray);
     gap: 8px;
 }
+
+.favorite-button:hover,
+.favorite-button:focus {
+    background-color: var(--light-gray);
+    color: var(--dark-gray);
+}
+
 
 .close-modal {
     font-size: 28px;
