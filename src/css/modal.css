@@ -41,10 +41,28 @@
     visibility: visible;
     opacity: 1;
     border-radius: 20px;
+    max-width: 335px;
+}
+
+@media only screen and (min-width: 768px) {
+    .modal.active {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 32px;
+        padding: 32px;
+        max-width: 708px;
+    }
 }
 
 .exercise-gif {
+    width: 100%;
     border-radius: 12px;
+}
+
+@media only screen and (min-width: 768px) {
+    .exercise-gif {
+        width: 270px;
+    }
 }
 
 .exercise-name {
@@ -59,6 +77,13 @@
     flex-direction: column;
     gap: 20px;
     margin-bottom: 40px;
+}
+
+@media only screen and (min-width: 768px) {
+    .modal-content-holder {
+        gap: 16px;
+        margin-bottom: 64px;
+    }
 }
 
 .modal-exercise-description-list {
@@ -112,6 +137,14 @@
     height: 18px;
 }
 
+.rating-icon {
+    color: rgba(244, 244, 244, 0.2);
+}
+
+.rating-icon.active {
+    color: rgba(238, 161, 12, 1);
+}
+
 .favorite-button {
     display: flex;
     background-color: var(--dark-gray);
@@ -122,4 +155,13 @@
     justify-content: center;
     color: var(--light-gray);
     gap: 8px;
+}
+
+.close-modal {
+    font-size: 28px;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 28px;
+    height: 28px;
 }
