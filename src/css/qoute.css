@@ -149,7 +149,7 @@
     height: 32px;
 }
 
-@media only screen and (max-width: 1279px) {
+@media only screen and (max-width: 1439px) {
     .truncate-text {
         display: -webkit-box;
         -webkit-box-orient: vertical;

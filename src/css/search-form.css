@@ -4,9 +4,9 @@
     border: 1px solid var(--dark-gray);
     border-radius: 30px;
     overflow: hidden;
-    margin-bottom: 20px;
     padding: 0 14px;
     display: none;
+    min-width: 208px;
 }
 
 .search-input {
