@@ -98,11 +98,24 @@ export const initializeExerciseModal = () => {
   };
 
   exercisesList.addEventListener('click', event => {
+    const deleteButton = event.target.closest('.favorites-delete-button');
     const exerciseItem = event.target.closest('.exercise-list-item');
-    if (exerciseItem) {
+
+    if (deleteButton) {
+      const exerciseId = deleteButton.dataset.id;
+
+      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+      const updatedFavorites = favorites.filter(
+        item => item._id !== exerciseId
+      );
+      localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+
+      initializeFavoriteExercises();
+    }
+
+    if (exerciseItem && !deleteButton) {
       showModal(exerciseItem.dataset.id);
     }
   });
-
   modalBackdrop.addEventListener('click', hideModal);
 };

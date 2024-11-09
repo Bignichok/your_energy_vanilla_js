@@ -20,19 +20,31 @@ export const getCategoriesMarkup = categories => {
     .join('');
 };
 
-export const getExercisesMarkup = exercises => {
+export const getExercisesMarkup = (exercises, favoritesPage) => {
   return exercises
     .map(
       ({ rating, name, bodyPart, target, burnedCalories, _id }) => `
     <li class="exercise-list-item" data-id="${_id}">
       <div class="first-row">
         <div class="workout-element">WORKOUT</div>
-        <div class="rating-holder">
-          <span>${getRoundedRating(rating)}</span>
-          <svg width="18" height="18">
-            <use href="./img/sprite.svg#icon-star"></use>
-          </svg>
-        </div>
+        ${
+          favoritesPage
+            ? `
+            <button type="button" data-id="${_id}" class="favorites-delete-button">
+              <svg width="20" height="20">
+                <use href="./img/sprite.svg#icon-trash"></use>
+              </svg>
+            </button>
+            `
+            : `
+            <div class="rating-holder">
+              <span>${getRoundedRating(rating)}</span>
+              <svg width="18" height="18">
+                <use href="./img/sprite.svg#icon-star"></use>
+              </svg>
+            </div>
+        `
+        }
         <button class="start-button">
           Start
           <svg width="16" height="16">

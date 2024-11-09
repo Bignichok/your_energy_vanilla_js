@@ -10,7 +10,7 @@ export const initializeFavoriteExercises = () => {
   if (favorites.length > 0) {
     exercisesList.insertAdjacentHTML(
       'beforeend',
-      getExercisesMarkup(favorites)
+      getExercisesMarkup(favorites, true)
     );
   } else {
     exercisesContainer.insertAdjacentHTML(

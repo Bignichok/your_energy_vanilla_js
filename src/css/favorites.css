@@ -36,6 +36,9 @@
 @media only screen and (min-width: 768px) {
     .favorites-title {
         margin-bottom: 32px;
+        font-size: 44px;
+        font-weight: 400;
+        line-height: 48px;
     }
 }
 
@@ -63,11 +66,6 @@
     justify-content: flex-start;
 }
 
-.favorites-quote-image {
-    border-radius: 20px;
-    grid-area: image;
-}
-
 @media only screen and (min-width: 768px) {
     .favorites-quote-container {
         grid-template-columns: calc(50% - 12px);
@@ -76,6 +74,17 @@
             'card card'
             'white-card image';
     }
+}
+
+@media only screen and (min-width: 1440px) {
+    .favorites-quote-container .quote-card {
+        max-width: 494px;
+    }
+}
+
+.favorites-quote-image {
+    border-radius: 20px;
+    grid-area: image;
 }
 
 .favorites-quote-card .title {
