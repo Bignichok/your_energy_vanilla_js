@@ -60,6 +60,7 @@
 
 .exercise-list-item .first-row {
     display: flex;
+    align-items: center;
     margin-bottom: 25px;
 }
 

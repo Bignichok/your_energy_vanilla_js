@@ -28,6 +28,8 @@
 html,
 body {
     font-family: 'DM Sans', Roboto, sans-serif;
+    min-height: 100vh;
+    background-color: var(--light-gray);
 }
 
 * {
@@ -40,8 +42,4 @@ body {
     --light-gray: rgba(244, 244, 244, 1);
     --backdrop: rgba(4, 4, 4, 0.4);
     --white: rgb(255, 255, 255);
-}
-
-main {
-    background-color: var(--light-gray);
 }
