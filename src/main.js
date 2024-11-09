@@ -1,5 +1,6 @@
-import { initializeExerceisesSection } from './js/exercises.js';
+import { initializeExercisesSection } from './js/exercises.js';
 import { displayQuoteOfTheDay } from './js/quote.js';
+import { initializeExerciseModal } from './js/exerciseModal.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const menuButton = document.querySelector('.burger-menu');
@@ -9,16 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileNavigation = document.querySelector('.mobile-nav-list');
   const links = document.querySelectorAll('.nav-link');
 
-  const toogleMenu = () => {
+  const toggleMenu = () => {
     menu.classList.toggle('active');
     menuBackdrop.classList.toggle('active');
     menuButton.classList.toggle('active');
   };
 
-  const currentPath = window.location.pathname.split('/').pop();
+  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
 
-  const isActiveLink = linkPath =>
-    linkPath === currentPath || (linkPath === 'index.html' && !currentPath);
+  const isActiveLink = linkPath => linkPath === currentPath;
 
   links.forEach(link => {
     if (isActiveLink(link.getAttribute('href'))) {
@@ -26,11 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  menuButton.addEventListener('click', toogleMenu);
-  menuBackdrop.addEventListener('click', toogleMenu);
-  closeMenuButton.addEventListener('click', toogleMenu);
-  mobileNavigation.addEventListener('click', toogleMenu);
+  menuButton.addEventListener('click', toggleMenu);
+  menuBackdrop.addEventListener('click', toggleMenu);
+  closeMenuButton.addEventListener('click', toggleMenu);
+  mobileNavigation.addEventListener('click', toggleMenu);
 
-  initializeExerceisesSection();
+  initializeExercisesSection();
   displayQuoteOfTheDay();
+  initializeExerciseModal();
 });

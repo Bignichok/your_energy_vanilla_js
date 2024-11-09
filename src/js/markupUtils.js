@@ -1,3 +1,5 @@
+import { getRoundedRating } from './utils.js';
+
 export const renderTitle = (element, category) => {
   element.innerHTML = category
     ? `Exercises /<span>${category}</span>`
@@ -21,12 +23,12 @@ export const getCategoriesMarkup = categories => {
 export const getExercisesMarkup = exercises => {
   return exercises
     .map(
-      ({ rating, name, bodyPart, target, burnedCalories }) => `
-    <li class="exercise-list-item">
+      ({ rating, name, bodyPart, target, burnedCalories, _id }) => `
+    <li class="exercise-list-item" data-id="${_id}">
       <div class="first-row">
         <div class="workout-element">WORKOUT</div>
         <div class="rating-holder">
-          <span>${parseFloat(rating).toFixed(1)}</span>
+          <span>${getRoundedRating(rating)}</span>
           <svg width="18" height="18">
             <use href="./img/sprite.svg#icon-star"></use>
           </svg>
@@ -53,4 +55,73 @@ export const getExercisesMarkup = exercises => {
   `
     )
     .join('');
+};
+
+export const getExerciseModalMarkup = (exerciseData, isFavorited) => {
+  const {
+    name,
+    rating,
+    gifUrl,
+    target,
+    bodyPart,
+    equipment,
+    popularity,
+    burnedCalories,
+    description,
+    time,
+  } = exerciseData;
+
+  const ratingMarkup = Array.from({ length: 5 })
+    .map((_, index) => {
+      const isActive = index < getRoundedRating(rating);
+      return `
+        <li>
+          <svg width="18" height="18" class="rating-icon ${
+            isActive ? 'active' : ''
+          }">
+            <use href="./img/sprite.svg#icon-star"></use>
+          </svg>
+        </li>`;
+    })
+    .join('');
+
+  return `
+    <button class="close-modal">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none">
+        <path
+          stroke="#F4F4F4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M19.833 8.167 8.167 19.833m0-11.666 11.666 11.666"
+        />
+      </svg>
+    </button>
+    <img src="${gifUrl}" alt="${name}" class="exercise-gif" />
+    <div>
+      <div class="modal-content-holder">
+        <h2 class="exercise-name">${name}</h2>
+        <div class="exercise-rating">
+          <span>${getRoundedRating(rating)}</span>
+          <ul class="rating-holder">${ratingMarkup}</ul>
+        </div>
+        <ul class="modal-exercise-description-list">
+          <li>Target <span>${target}</span></li>
+          <li>Body Part <span>${bodyPart}</span></li>
+          <li>Equipment <span>${equipment}</span></li>
+          <li>Popular <span>${popularity}</span></li>
+          <li>Calories Burned <span>${burnedCalories}/${time} min</span></li>
+        </ul>
+        <p class="exercise-description">${description}</p>
+      </div>
+      <button class="favorite-button ${isFavorited ? 'favorited' : ''}">
+        ${isFavorited ? 'Remove from Favorites' : 'Add to Favorites'}
+        <svg width="20" height="20">
+          <use href="./img/sprite.svg#${
+            isFavorited ? 'icon-trash' : 'icon-heart'
+          }"></use>
+        </svg>
+      </button>
+    </div>
+  `;
 };
