@@ -1,5 +1,6 @@
 import { getExerciseModalMarkup } from './markupUtils';
 import { fetchExerciseById } from './api.js';
+import { initializeFavoriteExercises } from './favoriteExercise.js';
 
 export const initializeExerciseModal = () => {
   const modalBackdrop = document.querySelector('.modal-backdrop');
@@ -8,7 +9,7 @@ export const initializeExerciseModal = () => {
 
   const checkIfFavorited = exerciseId => {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    return favorites.includes(exerciseId);
+    return favorites.some(fav => fav._id === exerciseId);
   };
 
   const escKeyListener = e => {
@@ -39,18 +40,33 @@ export const initializeExerciseModal = () => {
     }
   };
 
-  const toggleFavorite = exerciseId => {
+  const toggleFavorite = exerciseData => {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    if (favorites.includes(exerciseId)) {
+    const isFavorited = favorites.some(fav => fav._id === exerciseData._id);
+
+    if (isFavorited) {
       localStorage.setItem(
         'favorites',
-        JSON.stringify(favorites.filter(id => id !== exerciseId))
+        JSON.stringify(favorites.filter(fav => fav._id !== exerciseData._id))
       );
     } else {
-      favorites.push(exerciseId);
+      favorites.push({
+        _id: exerciseData._id,
+        name: exerciseData.name,
+        rating: exerciseData.rating,
+        bodyPart: exerciseData.bodyPart,
+        target: exerciseData.target,
+        burnedCalories: exerciseData.burnedCalories,
+      });
       localStorage.setItem('favorites', JSON.stringify(favorites));
     }
-    updateFavoriteButton(exerciseId);
+
+    updateFavoriteButton(exerciseData._id);
+
+    const currentPath = window.location.pathname.split('/').pop();
+    if (currentPath === 'favorites.html') {
+      initializeFavoriteExercises();
+    }
   };
 
   const showModal = async exerciseId => {
@@ -73,7 +89,7 @@ export const initializeExerciseModal = () => {
       if (closeButton) closeButton.addEventListener('click', hideModal);
       if (favoriteButton) {
         favoriteButton.addEventListener('click', () =>
-          toggleFavorite(exerciseId)
+          toggleFavorite(exerciseData)
         );
       }
     } catch (error) {
