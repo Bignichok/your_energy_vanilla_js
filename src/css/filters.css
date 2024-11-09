@@ -1,18 +1,23 @@
 .filters-holder {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     margin-bottom: 20px;
 }
 
 @media only screen and (min-width: 768px) {
     .filters-holder {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
         margin-bottom: 32px;
     }
 }
 
 @media only screen and (min-width: 1440px) {
     .filters-holder {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-basis: auto;
     }
 }
 
@@ -20,8 +25,17 @@
     font-size: 28px;
     line-height: 38px;
     letter-spacing: -0.02em;
-    margin-bottom: 20px;
     font-weight: 400;
+}
+
+.filters-title span {
+    font-size: 20px;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+    color: (36, 36, 36, 0.5);
+    margin-left: 8px;
+    text-transform: capitalize;
+    color: rgba(36, 36, 36, 0.5);
 }
 
 @media only screen and (min-width: 768px) {
@@ -29,7 +43,19 @@
         font-size: 44px;
         line-height: 48px;
         letter-spacing: -0.02em;
-        margin-bottom: 32px;
+        flex-basis: 100%;
+    }
+
+    .filters-title span {
+        font-size: 24px;
+        line-height: 32px;
+        letter-spacing: -0.02em;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .filters-title {
+        flex-basis: 60%;
     }
 }
 

@@ -1,4 +1,4 @@
-import { initializeCategoriesSection } from './js/categories.js';
+import { initializeExerceisesSection } from './js/exercises.js';
 import { displayQuoteOfTheDay } from './js/quote.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -31,6 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
   closeMenuButton.addEventListener('click', toogleMenu);
   mobileNavigation.addEventListener('click', toogleMenu);
 
-  initializeCategoriesSection();
+  initializeExerceisesSection();
   displayQuoteOfTheDay();
 });
