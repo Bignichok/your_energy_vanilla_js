@@ -8,6 +8,13 @@
     box-sizing: border-box;
 }
 
+.favorites-content-holder .quote-container {
+    grid-template-areas:
+        'black-card'
+        'white-card'
+        'image';
+}
+
 @media only screen and (min-width: 768px) {
     .quote-container {
         grid-template-areas:
@@ -15,6 +22,13 @@
             'white-card x';
         grid-template-columns: 1fr 288px;
         gap: 32px 16px;
+    }
+
+    .favorites-content-holder .quote-container {
+        grid-template-areas:
+            'black-card black-card'
+            'white-card image'
+        ;
     }
 }
 
@@ -139,7 +153,6 @@
 }
 
 .quote-image {
-    width: ;
     border-radius: 20px;
     grid-area: image;
 }

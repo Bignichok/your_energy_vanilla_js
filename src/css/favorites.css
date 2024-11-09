@@ -1,0 +1,108 @@
+.favorites-content-holder {
+    padding: 80px 0;
+}
+
+.favorites-exercises-holder {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+@media only screen and (min-width: 768px) {
+    .favorites-exercises-holder {
+        gap: 64px;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .favorites-exercises-holder {
+        flex-direction: row;
+        gap: 32px;
+    }
+
+    .favorites-exercises-holder .exercises-container {
+        width: 818px;
+    }
+}
+
+.favorites-title {
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 38px;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+}
+
+@media only screen and (min-width: 768px) {
+    .favorites-title {
+        margin-bottom: 32px;
+    }
+}
+
+.favorites-quote-card {
+    padding: 20px;
+    border-radius: 20px;
+    background: var(--white);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.favorites-quote-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.favorites-quote-container .quote-card {
+    justify-content: flex-start;
+}
+
+.favorites-quote-image {
+    border-radius: 20px;
+}
+
+@media only screen and (min-width: 768px) {
+    .favorites-quote-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .favorites-quote-container .quote-card {
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+
+    .favorites-quote-image,
+    .favorites-quote-card {
+        flex-basis: calc(50% - 12px);
+    }
+}
+
+.favorites-quote-card .title {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 20px;
+    margin-bottom: 6px;
+}
+
+.favorites-quote-card .subtitle {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    color: rgba(36, 36, 36, 0.6);
+}
+
+.exersices-empty-text {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: center;
+}
+
+@media only screen and (min-width: 768px) {
+    .exersices-empty-text {
+        font-size: 18px;
+        line-height: 24px;
+    }
+}
