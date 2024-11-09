@@ -7,7 +7,7 @@ import {
 } from './markupUtils.js';
 import { toggleClearButton, clearInput, scrollToFilters } from './utils.js';
 
-export const initializeExerceisesSection = () => {
+export const initializeExercisesSection = () => {
   const categoriesContainer = document.querySelector('.categories-list');
   const filtersTitle = document.querySelector('.filters-title');
   const filters = document.querySelector('#filters');

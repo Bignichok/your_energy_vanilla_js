@@ -21,8 +21,8 @@ export const getCategoriesMarkup = categories => {
 export const getExercisesMarkup = exercises => {
   return exercises
     .map(
-      ({ rating, name, bodyPart, target, burnedCalories }) => `
-    <li class="exercise-list-item">
+      ({ rating, name, bodyPart, target, burnedCalories, _id }) => `
+    <li class="exercise-list-item" data-id="${_id}">
       <div class="first-row">
         <div class="workout-element">WORKOUT</div>
         <div class="rating-holder">
@@ -54,3 +54,23 @@ export const getExercisesMarkup = exercises => {
     )
     .join('');
 };
+
+export const getExerciseModalMarkup = exerciseData => `
+  <button class="close-modal">×</button>
+  <h2 class="exercise-name">${exerciseData.name}</h2>
+  <video class="exercise-video" controls src="${exerciseData.gifUrl}"></video>
+  <p class="exercise-rating">Rating: ${exerciseData.rating}</p>
+  <p class="exercise-target">Target: ${exerciseData.target}</p>
+  <p class="exercise-bodyPart">Body Part: ${exerciseData.bodyPart}</p>
+  <p class="exercise-popularity">Popularity: ${exerciseData.popularity}</p>
+  <p class="exercise-calories">Calories Burned: ${
+    exerciseData.burnedCalories
+  } kcal in ${exerciseData.time} minutes</p>
+  <p class="exercise-description">${exerciseData.description}</p>
+  <button class="favorite-button"></button>
+  ${
+    exerciseData.rating
+      ? '<button class="rate-button">Give a rating</button>'
+      : ''
+  }
+`;

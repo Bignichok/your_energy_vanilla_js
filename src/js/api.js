@@ -60,3 +60,12 @@ export const fetchExercises = async ({
     console.error('Error fetching exercises:', error);
   }
 };
+
+export const fetchExerciseById = async id => {
+  try {
+    const response = await api.get(`/exercises/${id}`);
+    return response.data;
+  } catch (e) {
+    console.error('Error fetching exercise by id:', e);
+  }
+};
