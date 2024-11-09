@@ -40,7 +40,14 @@
 
 @media only screen and (min-width: 768px) {
     .exercises-list {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 344px);
+        gap: 32px 16px;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .exercises-list {
+        grid-template-columns: repeat(2, 442px);
         gap: 32px 16px;
     }
 }
