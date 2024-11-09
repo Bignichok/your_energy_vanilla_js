@@ -71,10 +71,10 @@ export const fetchExerciseById = async id => {
 };
 
 export const subscribeEmail = async email => {
-  try {
-    const response = await api.post('/subscription', { email });
-    return response.data;
-  } catch (error) {
-    console.error('Error subscribing email:', error);
+  const response = await api.post('/subscription', { email });
+
+  if (response.data?.error) {
+    throw new Error(response.data?.error || 'Subscription failed');
   }
+  return response.data;
 };

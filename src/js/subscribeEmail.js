@@ -1,3 +1,6 @@
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
+
 import { subscribeEmail } from './api.js';
 
 export const initializeSubscribeEmail = () => {
@@ -11,13 +14,26 @@ export const initializeSubscribeEmail = () => {
     try {
       const response = await subscribeEmail(email);
       if (response) {
-        alert('Subscription successful!');
+        Toastify({
+          text: 'Subscription successful!',
+          duration: 3000,
+          backgroundColor: '#4CAF50',
+          close: true,
+        }).showToast();
         emailInput.value = '';
-      } else {
-        alert('Subscription failed. Please try again later.');
       }
     } catch (error) {
-      alert('An error occurred. Please try again later.');
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        'An error occurred. Please try again later.';
+
+      Toastify({
+        text: errorMessage,
+        duration: 3000,
+        backgroundColor: '#FF5F6D',
+        close: true,
+      }).showToast();
     }
   });
 };
